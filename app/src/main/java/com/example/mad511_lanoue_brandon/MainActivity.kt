@@ -6,14 +6,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
-
+import androidx.compose.foundation.*
+import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mad511_lanoue_brandon.ui.theme.MAD511_Lanoue_BrandonTheme
@@ -42,6 +45,8 @@ fun Lab1Main()
     var genre by remember { mutableStateOf("") }
     var yearFormed by remember { mutableStateOf("") }
 
+    val artists = remember { mutableStateListOf<Artist>() }
+
     Column() {
         Text("Artist Name:")
         TextField(
@@ -61,6 +66,17 @@ fun Lab1Main()
         Button(
             onClick = {}
         ) { }
+    }
+    LazyColumn{
+        for (artist in artists) {
+            item {
+                Row {
+                    Text("Name: ${artist.name}")
+                    Text("Genre: ${artist.genre}")
+                    Text("Year: ${artist.yearFormed}")
+                }
+            }
+        }
     }
 
 }
