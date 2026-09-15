@@ -18,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mad511_lanoue_brandon.ui.theme.MAD511_Lanoue_BrandonTheme
 
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
+            Lab1Main()
         }
     }
 }
@@ -47,7 +48,7 @@ fun Lab1Main()
 
     val artists = remember { mutableStateListOf<Artist>() }
 
-    Column() {
+    Column(Modifier.padding(16.dp)) {
         Text("Artist Name:")
         TextField(
             value = name,
@@ -64,20 +65,45 @@ fun Lab1Main()
             onValueChange = {yearFormed = it},
         )
         Button(
-            onClick = {}
-        ) { }
-    }
-    LazyColumn{
-        for (artist in artists) {
-            item {
-                Row {
-                    Text("Name: ${artist.name}")
-                    Text("Genre: ${artist.genre}")
-                    Text("Year: ${artist.yearFormed}")
+            onClick = {
+                val year = yearFormed.toIntOrNull()
+
+                if (year != null) {
+                    artists.add(
+                        Artist(
+                            name = name,
+                            genre = genre,
+                            yearFormed = year
+                        )
+                    )
+                }
+                else
+                {
+                    artists.add(
+                        Artist(
+                            name = name,
+                            genre = genre,
+                            yearFormed = 9999
+                        )
+                    )
+                }
+            }
+        ) {
+            Text("Add")
+        }
+        LazyColumn{
+            for (artist in artists) {
+                item {
+                    Row {
+                        Text("Name: ${artist.name}")
+                        Text("Genre: ${artist.genre}")
+                        Text("Year: ${artist.yearFormed}")
+                    }
                 }
             }
         }
     }
+
 
 }
 
