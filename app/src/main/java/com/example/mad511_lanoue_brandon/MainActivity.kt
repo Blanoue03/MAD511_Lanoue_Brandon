@@ -16,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
@@ -94,10 +96,12 @@ fun Lab1Main()
         LazyColumn{
             for (artist in artists) {
                 item {
-                    Row {
-                        Text("Name: ${artist.name} ")
-                        Text("Genre: ${artist.genre} ")
-                        Text("Year: ${artist.yearFormed} ")
+                    Row(  modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "Name: ${artist.name} Genre: ${artist.genre} Year Formed: ${artist.yearFormed}",
+                            modifier = Modifier.weight(1f)
+                        )
                         Button(
                             onClick = {
                                 artists.remove(artist)
