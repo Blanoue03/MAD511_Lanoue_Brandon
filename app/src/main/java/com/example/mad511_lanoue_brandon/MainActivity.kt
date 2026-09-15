@@ -1,5 +1,6 @@
 package com.example.mad511_lanoue_brandon
 
+import android.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mad511_lanoue_brandon.ui.theme.MAD511_Lanoue_BrandonTheme
+
+
+data class Artist(
+    val name: String,
+    val genre: String,
+    val yearFormed: Int
+)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
