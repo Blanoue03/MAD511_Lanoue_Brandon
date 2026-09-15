@@ -95,9 +95,16 @@ fun Lab1Main()
             for (artist in artists) {
                 item {
                     Row {
-                        Text("Name: ${artist.name}")
-                        Text("Genre: ${artist.genre}")
-                        Text("Year: ${artist.yearFormed}")
+                        Text("Name: ${artist.name} ")
+                        Text("Genre: ${artist.genre} ")
+                        Text("Year: ${artist.yearFormed} ")
+                        Button(
+                            onClick = {
+                                artists.remove(artist)
+                            }
+                        ) {
+                            Text("Delete")
+                        }
                     }
                 }
             }
