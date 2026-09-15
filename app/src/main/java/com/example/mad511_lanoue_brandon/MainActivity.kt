@@ -5,11 +5,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.*
+
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mad511_lanoue_brandon.ui.theme.MAD511_Lanoue_BrandonTheme
@@ -26,30 +30,38 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MAD511_Lanoue_BrandonTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun Lab1Main()
+{
+    var name by remember { mutableStateOf("") }
+    var genre by remember { mutableStateOf("") }
+    var yearFormed by remember { mutableStateOf("") }
+
+    Column() {
+        Text("Artist Name:")
+        TextField(
+            value = name,
+            onValueChange = {name = it},
+        )
+        Text("Artist Genre:")
+        TextField(
+            value = genre,
+            onValueChange = {genre = it},
+        )
+        Text("Year formed:")
+        TextField(
+            value = yearFormed,
+            onValueChange = {yearFormed = it},
+        )
+        Button(
+            onClick = {}
+        ) { }
+    }
+
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MAD511_Lanoue_BrandonTheme {
-        Greeting("Android")
-    }
-}
