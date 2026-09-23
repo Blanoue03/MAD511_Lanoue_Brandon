@@ -53,26 +53,18 @@ fun Lab2Main()
     var yearFormed by remember { mutableStateOf("") }
 
     val artists = remember { mutableStateListOf<Artist>() }
-
-    val nameValid = name.isNotBlank()
-    val genreValid = genre.isNotBlank()
-
     /*
-        YEAR INPUT VALIDATION RULE
-        I have set the earliest year to be 1600 just in case someone wants to add Beethoven or a
-        different classical Artist, and naturally no one knows future artists so the year cant be over 2026.
-        Also no letters.
-     */
-    val yearValid = yearFormed.toIntOrNull()?.let {
-        it in 1600..2026
-    } ?: false
-
+           YEAR INPUT VALIDATION RULE
+           I have set the earliest year to be 1600 just in case someone wants to add Beethoven or a
+           different classical Artist, and naturally no one knows future artists so the year cant be over 2026.
+           Also no letters.
+        */
     val addEnabled by remember {
         derivedStateOf {
             name.isNotBlank() &&
                     genre.isNotBlank() &&
                     (yearFormed.toIntOrNull()?.let {
-                        it in 1900..2026
+                        it in 1700..2026
                     } ?: false)
         }
     }
@@ -209,7 +201,7 @@ fun ArtistForm(
                 supportingText = {
                     Text(
                         if (yearError) {
-                            "Enter a year between 1900 and $currentYear"
+                            "Enter a year between 1700 and $currentYear"
                         } else {
                             " "
                         }
