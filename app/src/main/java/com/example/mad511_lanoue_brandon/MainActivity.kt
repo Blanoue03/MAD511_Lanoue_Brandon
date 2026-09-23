@@ -50,71 +50,20 @@ fun Lab1Main()
 
     val artists = remember { mutableStateListOf<Artist>() }
 
-    Column(Modifier.padding(16.dp)) {
-        Text("Artist Name:")
-        TextField(
-            value = name,
-            onValueChange = {name = it},
-        )
-        Text("Artist Genre:")
-        TextField(
-            value = genre,
-            onValueChange = {genre = it},
-        )
-        Text("Year formed:")
-        TextField(
-            value = yearFormed,
-            onValueChange = {yearFormed = it},
-        )
-        Button(
-            onClick = {
-                val year = yearFormed.toIntOrNull()
 
-                if (year != null) {
-                    artists.add(
-                        Artist(
-                            name = name,
-                            genre = genre,
-                            yearFormed = year
-                        )
-                    )
-                }
-                else
-                {
-                    artists.add(
-                        Artist(
-                            name = name,
-                            genre = genre,
-                            yearFormed = 9999
-                        )
-                    )
-                }
-            }
-        ) {
-            Text("Add")
-        }
-        LazyColumn{
-            for (artist in artists) {
-                item {
-                    Row(  modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = "Name: ${artist.name} Genre: ${artist.genre} Year Formed: ${artist.yearFormed}",
-                            modifier = Modifier.weight(1f)
-                        )
-                        Button(
-                            onClick = {
-                                artists.remove(artist)
-                            }
-                        ) {
-                            Text("Delete")
-                        }
-                    }
-                }
-            }
-        }
-    }
 
+
+}
+
+@Composable
+fun Artist(
+    name: String,
+    genre: String,
+    yearFormed: String,
+    artists: List<Artist>
+
+)
+{
 
 }
 
