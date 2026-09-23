@@ -40,13 +40,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Lab1Main()
+            Lab2Main()
         }
     }
 }
 
 @Composable
-fun Lab1Main()
+fun Lab2Main()
 {
     var name by remember { mutableStateOf("") }
     var genre by remember { mutableStateOf("") }
