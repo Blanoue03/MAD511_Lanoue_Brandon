@@ -16,8 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -55,15 +57,72 @@ fun Lab1Main()
 
 }
 
+@Preview(showBackground = true)
+@Composable
+fun ArtistFormPreview() {
+
+    Artist(
+        name = "Nirvana",
+        genre = "Grunge",
+        yearFormed = "1987",
+        artists = emptyList(),
+        onNameChange = {},
+        onGenreChange = {},
+        onYearChange = {},
+
+    )
+}
+
 @Composable
 fun Artist(
     name: String,
     genre: String,
     yearFormed: String,
-    artists: List<Artist>
-
+    artists: List<Artist>,
+    onNameChange: (String) -> Unit,
+    onGenreChange: (String) -> Unit,
+    onYearChange: (String) -> Unit,
 )
 {
+    Scaffold { paddingValues ->
 
+        Column(
+            modifier = Modifier
+                .padding(paddingValues)
+                .padding(16.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+
+            OutlinedTextField(
+                value = name,
+                onValueChange = onNameChange,
+                modifier = Modifier.fillMaxWidth(),
+                label = {
+                    Text("Artist Name")
+                }
+            )
+
+            OutlinedTextField(
+                value = genre,
+                onValueChange = onGenreChange,
+                modifier = Modifier.fillMaxWidth(),
+                label = {
+                    Text("Artist Genre")
+                }
+            )
+
+            OutlinedTextField(
+                value = yearFormed,
+                onValueChange = onYearChange,
+                modifier = Modifier.fillMaxWidth(),
+                label = {
+                    Text("Year Formed")
+                }
+            )
+        }
+    }
 }
+
+
 
