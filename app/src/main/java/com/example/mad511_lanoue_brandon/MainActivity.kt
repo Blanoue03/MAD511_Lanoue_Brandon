@@ -57,18 +57,53 @@ fun Lab1Main()
     val nameValid = name.isNotBlank()
     val genreValid = genre.isNotBlank()
 
+    /*
+        YEAR INPUT VALIDATION RULE
+        I have set the earliest year to be 1600 just in case someone wants to add Beethoven or a
+        different classical Artist, and naturally no one knows future artists so the year cant be over 2026.
+        Also no letters.
+     */
     val yearValid = yearFormed.toIntOrNull()?.let {
-        it in 1900..2026
+        it in 1600..2026
     } ?: false
+
+    val addEnabled by remember {
+        derivedStateOf {
+            name.isNotBlank() &&
+                    genre.isNotBlank() &&
+                    (yearFormed.toIntOrNull()?.let {
+                        it in 1900..2026
+                    } ?: false)
+        }
+    }
 
     ArtistForm( name = name,
         genre = genre,
         yearFormed = yearFormed,
         artists = artists,
+        addEnabled = addEnabled,
 
         onNameChange = { newName -> name = newName },
         onGenreChange = { newGenre -> genre = newGenre },
-        onYearChange = { newYear -> yearFormed = newYear },)
+        onYearChange = { newYear -> yearFormed = newYear },
+
+        onAdd = {
+            artists.add(
+                Artist(
+                    name = name,
+                    genre = genre,
+                    yearFormed = yearFormed.toInt()
+                )
+            )
+
+            name = ""
+            genre = ""
+            yearFormed = ""
+        },
+        onDelete = { artist ->
+            artists.remove(artist)
+        }
+        )
 
 }
 
@@ -81,9 +116,12 @@ fun ArtistPreview() {
         genre = "Grunge",
         yearFormed = "1987",
         artists = emptyList(),
+        addEnabled = true,
         onNameChange = {},
         onGenreChange = {},
         onYearChange = {},
+        onAdd = {},
+        onDelete = {}
 
     )
 }
@@ -94,9 +132,12 @@ fun ArtistForm(
     genre: String,
     yearFormed: String,
     artists: List<Artist>,
+    addEnabled: Boolean,
     onNameChange: (String) -> Unit,
     onGenreChange: (String) -> Unit,
     onYearChange: (String) -> Unit,
+    onAdd: () -> Unit,
+    onDelete: (Artist) -> Unit
 )
 {
 
@@ -175,6 +216,44 @@ fun ArtistForm(
                     )
                 }
             )
+            Button(
+                onClick = onAdd,
+                enabled = addEnabled,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Add")
+            }
+
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                items(artists) { artist ->
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        Text(
+                            text =
+                                "Name: ${artist.name}\n" +
+                                        "Genre: ${artist.genre}\n" +
+                                        "Year Formed: ${artist.yearFormed}",
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        Button(
+                            onClick = {
+                                onDelete(artist)
+                            }
+                        ) {
+                            Text("Delete")
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
