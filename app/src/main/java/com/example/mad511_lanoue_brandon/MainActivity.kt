@@ -30,6 +30,7 @@ import com.example.mad511_lanoue_brandon.ui.theme.MAD511_Lanoue_BrandonTheme
 
 
 data class Artist(
+   // val id : Int,
     val name: String,
     val genre: String,
     val yearFormed: Int
